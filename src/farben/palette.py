@@ -6,12 +6,12 @@ which is released under MIT license.
 import abc
 import json
 import pathlib
-import random
 from typing import Dict, List, Tuple
 
 import bs4
 from lxml import etree
 import requests
+import secrets
 
 
 class Palette(abc.ABC):
@@ -76,7 +76,7 @@ class Palette(abc.ABC):
         # Open HTTP session
         with requests.Session() as session:
             # Set headers (using random UA)
-            session.headers = {"User-Agent": random.choice(self.ua)}
+            session.headers = {"User-Agent": secrets.SystemRandom().choice(self.ua)}
 
             # .. fetch URL contents
             response = session.get(url, timeout=10)
